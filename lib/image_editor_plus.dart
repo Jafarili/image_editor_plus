@@ -183,7 +183,15 @@ class _MultiImageEditorState extends State<MultiImageEditor> {
   void initState() {
     images = widget.images.map((e) => ImageItem(e)).toList();
 
+    scaffoldGlobalKey= GlobalKey<ScaffoldState>();
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scaffoldGlobalKey = null;
+    super.dispose();
   }
 
   @override
@@ -193,7 +201,6 @@ class _MultiImageEditorState extends State<MultiImageEditor> {
     return Theme(
       data: ImageEditor.theme,
       child: Scaffold(
-        key: scaffoldGlobalKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: [
@@ -402,6 +409,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
   @override
   void dispose() {
     layers.clear();
+    scaffoldGlobalKey = null;
     super.dispose();
   }
 
@@ -500,6 +508,8 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     if (widget.image != null) {
       loadImage(widget.image!);
     }
+
+    scaffoldGlobalKey= GlobalKey<ScaffoldState>();
 
     super.initState();
   }
@@ -601,7 +611,6 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     return Theme(
       data: ImageEditor.theme,
       child: Scaffold(
-        key: scaffoldGlobalKey,
         body: Stack(children: [
           GestureDetector(
             onScaleUpdate: (details) {
